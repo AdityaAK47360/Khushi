@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditya asks Khushi ☕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- PAGE 1: Ask -->
+<div id="page-ask">
+  <div class="envelope">🌸</div>
+  <div class="from-tag">from Aditya 🌸</div>
+
+  <h1>Hey <span>Khushi</span>…</h1>
+  <p class="subtitle">
+    It's a long weekend — what if we actually make a plan?<br>
+    Step out, explore Delhi, and just have<br>
+    a genuinely great time together 🌷
+  </p>
+  <div class="coffee-cup">🗺️</div>
+
+  <div class="btn-group">
+    <button class="btn-yes" onclick="sayYes()">💖 Yesss, let's go!</button>
+    <button class="btn-no" id="btnNo" onclick="moveNo()">No</button>
+  </div>
+
+  <div class="hearts-row">
+    <span>💕</span><span>🌸</span><span>💕</span>
+  </div>
+</div>
+
+<!-- PAGE 2: Delhi Places -->
+<div id="page-places">
+  <div class="places-header">
+    <h2>🌸 Pick a spot, Khushi!</h2>
+    <p>Where do you wanna go? Pick a place and let's go make some memories 💕</p>
+  </div>
+
+  <div class="places-grid" id="placesGrid"></div>
+
+  <div style="text-align:center; margin-top: 56px; padding: 28px 20px; border-top: 1px solid #f5c0d0;">
+    <p style="font-family:'Lato',sans-serif; font-size:1rem; color:#b05570; font-weight:300; margin-bottom:8px;">
+      Got a place in mind that's not on the list?
+    </p>
+    <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:#7a1f35;">
+      💬 DM me and let me know!
+    </p>
+  </div>
+</div>
+
+<!-- SELECTED OVERLAY -->
+<div id="page-selected">
+  <div class="selected-card">
+    <div id="selectedImgWrap"></div>
+    <div class="selected-body">
+      <div class="confetti-emoji">🎉</div>
+      <h2 id="selectedName"></h2>
+      <p id="selectedMsg"></p>
+      <div class="date-pill" onclick="showFinalPop()" style="cursor:pointer;">Let's Go! 🎉</div>
+      <br>
+      <span class="back-link" onclick="closeSelected()">← Pick another spot</span>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL POP-UP -->
+<div id="page-final" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:white; border-radius:28px; max-width:460px; width:100%; text-align:center; padding:40px 32px 36px; animation:popIn 0.4s ease; position:relative;">
+    <div style="font-size:52px; margin-bottom:6px;">🎊🥳🎊</div>
+    <h2 style="font-family:'Playfair Display',serif; color:#7a1f35; font-size:2rem; margin-bottom:10px;">Yayyyy!! 🌸</h2>
+    <p style="font-family:'Playfair Display',serif; font-style:italic; color:#d94f72; font-size:1.15rem; margin-bottom:14px;">
+      Thank you, Khushi! This honestly made my day 💕
+    </p>
+    <p style="font-family:'Lato',sans-serif; font-weight:300; color:#b05570; font-size:0.98rem; line-height:1.7; margin-bottom:24px;">
+      Can't wait — it's going to be so much fun!
+    </p>
+    <div style="background:linear-gradient(135deg,#fff0f5,#fef6e4); border:1px solid #f5c0d0; border-radius:16px; padding:16px 20px; margin-bottom:24px;">
+      <p style="font-family:'Playfair Display',serif; color:#7a1f35; font-size:1.1rem; margin-bottom:4px;">📱 So now…</p>
+      <p style="font-family:'Lato',sans-serif; font-weight:400; color:#b05570; font-size:1rem;">
+        Let's sort out the timing in the DMs! 🗓️✨
+      </p>
+    </div>
+    <span onclick="document.getElementById('page-final').style.display='none'" style="font-family:'Lato',sans-serif; font-size:0.82rem; color:#c0405a; cursor:pointer; text-decoration:underline;">close</span>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
