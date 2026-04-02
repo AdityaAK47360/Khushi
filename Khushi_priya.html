@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya asks Khushi ☕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(160deg, #fff0f5 0%, #fef6e4 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Floating hearts background */
+  .hearts-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .heart-particle {
+    position: absolute;
+    bottom: -50px;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0.4;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* PAGE 1 — Ask Page */
+  #page-ask {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .envelope {
+    font-size: 80px;
+    animation: pulse 2s ease-in-out infinite;
+    margin-bottom: 10px;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .from-tag {
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #c2607a;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    color: #7a1f35;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  h1 span {
+    font-style: italic;
+    color: #d94f72;
+  }
+
+  .subtitle {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: #b05570;
+    text-align: center;
+    margin-bottom: 10px;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .coffee-cup {
+    font-size: 50px;
+    margin: 10px 0 24px;
+    animation: steam 3s ease-in-out infinite;
+  }
+  @keyframes steam {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #f06292, #c0392b);
+    color: white;
+    border: none;
+    padding: 16px 52px;
+    border-radius: 50px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(210, 60, 90, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 1px;
+  }
+  .btn-yes:hover {
+    transform: scale(1.07);
+    box-shadow: 0 12px 40px rgba(210, 60, 90, 0.5);
+  }
+
+  .btn-no {
+    background: transparent;
+    color: #c2607a;
+    border: 2px solid #f0b8c8;
+    padding: 14px 44px;
+    border-radius: 50px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    position: fixed;
+    z-index: 999;
+  }
+  .btn-no:hover {
+    border-color: #f088a8;
+    color: #a03050;
+  }
+
+  .hearts-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    font-size: 22px;
+  }
+  .hearts-row span { animation: pulse 2s ease-in-out infinite; }
+  .hearts-row span:nth-child(2) { animation-delay: 0.3s; }
+  .hearts-row span:nth-child(3) { animation-delay: 0.6s; }
+
+  /* PAGE 2 — Delhi Places */
+  #page-places {
+    display: none;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 50px 24px 80px;
+    background: linear-gradient(160deg, #fff0f5 0%, #fef6e4 100%);
+  }
+
+  .places-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .places-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: #7a1f35;
+    margin-bottom: 10px;
+  }
+
+  .places-header p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #b05570;
+    font-size: 1rem;
+  }
+
+  .places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .place-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(200, 60, 90, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+  }
+  .place-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(200, 60, 90, 0.2);
+    border-color: #f06292;
+  }
+
+  .place-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background: #fde8ef;
+  }
+
+  .place-img-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+  }
+
+  .place-body {
+    padding: 20px;
+  }
+  .place-body h3 {
+    font-family: 'Playfair Display', serif;
+    color: #7a1f35;
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+  }
+  .place-body p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #888;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .place-tag {
+    display: inline-block;
+    background: #fff0f5;
+    color: #c0405a;
+    border: 1px solid #f8c0cc;
+    border-radius: 50px;
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    font-family: 'Lato', sans-serif;
+  }
+
+  /* SELECTED PLACE */
+  #page-selected {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .selected-card {
+    background: white;
+    border-radius: 24px;
+    max-width: 520px;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    animation: popIn 0.4s ease;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .selected-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+  .selected-img-placeholder {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+  }
+
+  .selected-body {
+    padding: 28px 32px 32px;
+  }
+  .confetti-emoji { font-size: 32px; }
+  .selected-body h2 {
+    font-family: 'Playfair Display', serif;
+    color: #7a1f35;
+    font-size: 1.7rem;
+    margin: 10px 0 8px;
+  }
+  .selected-body p {
+    color: #b05570;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .selected-body .date-pill {
+    display: inline-block;
+    background: linear-gradient(135deg, #f06292, #c0392b);
+    color: white;
+    border-radius: 50px;
+    padding: 12px 36px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+  .back-link {
+    display: block;
+    color: #c0405a;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- PAGE 1: Ask -->
+<div id="page-ask">
+  <div class="envelope">🌸</div>
+  <div class="from-tag">from Aditya 🌸</div>
+
+  <h1>Hey <span>Khushi</span>…</h1>
+  <p class="subtitle">
+    It's a long weekend — what if we actually make a plan?<br>
+    Step out, explore Delhi, and just have<br>
+    a genuinely great time together 🌷
+  </p>
+  <div class="coffee-cup">🗺️</div>
+
+  <div class="btn-group">
+    <button class="btn-yes" onclick="sayYes()">💖 Yesss, let's go!</button>
+    <button class="btn-no" id="btnNo" onclick="moveNo()">No</button>
+  </div>
+
+  <div class="hearts-row">
+    <span>💕</span><span>🌸</span><span>💕</span>
+  </div>
+</div>
+
+<!-- PAGE 2: Delhi Places -->
+<div id="page-places">
+  <div class="places-header">
+    <h2>🌸 Pick a spot, Khushi!</h2>
+    <p>Where do you wanna go? Pick a place and let's go make some memories 💕</p>
+  </div>
+
+  <div class="places-grid" id="placesGrid"></div>
+
+  <div style="text-align:center; margin-top: 56px; padding: 28px 20px; border-top: 1px solid #f5c0d0;">
+    <p style="font-family:'Lato',sans-serif; font-size:1rem; color:#b05570; font-weight:300; margin-bottom:8px;">
+      Got a place in mind that's not on the list?
+    </p>
+    <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:#7a1f35;">
+      💬 DM me and let me know!
+    </p>
+  </div>
+</div>
+
+<!-- SELECTED OVERLAY -->
+<div id="page-selected">
+  <div class="selected-card">
+    <div id="selectedImgWrap"></div>
+    <div class="selected-body">
+      <div class="confetti-emoji">🎉</div>
+      <h2 id="selectedName"></h2>
+      <p id="selectedMsg"></p>
+      <div class="date-pill" onclick="showFinalPop()" style="cursor:pointer;">Let's Go! 🎉</div>
+      <br>
+      <span class="back-link" onclick="closeSelected()">← Pick another spot</span>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL POP-UP -->
+<div id="page-final" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:white; border-radius:28px; max-width:460px; width:100%; text-align:center; padding:40px 32px 36px; animation:popIn 0.4s ease; position:relative;">
+    <div style="font-size:52px; margin-bottom:6px;">🎊🥳🎊</div>
+    <h2 style="font-family:'Playfair Display',serif; color:#7a1f35; font-size:2rem; margin-bottom:10px;">Yayyyy!! 🌸</h2>
+    <p style="font-family:'Playfair Display',serif; font-style:italic; color:#d94f72; font-size:1.15rem; margin-bottom:14px;">
+      Thank you, Khushi! This honestly made my day 💕
+    </p>
+    <p style="font-family:'Lato',sans-serif; font-weight:300; color:#b05570; font-size:0.98rem; line-height:1.7; margin-bottom:24px;">
+      Can't wait — it's going to be so much fun!
+    </p>
+    <div style="background:linear-gradient(135deg,#fff0f5,#fef6e4); border:1px solid #f5c0d0; border-radius:16px; padding:16px 20px; margin-bottom:24px;">
+      <p style="font-family:'Playfair Display',serif; color:#7a1f35; font-size:1.1rem; margin-bottom:4px;">📱 So now…</p>
+      <p style="font-family:'Lato',sans-serif; font-weight:400; color:#b05570; font-size:1rem;">
+        Let's sort out the timing in the DMs! 🗓️✨
+      </p>
+    </div>
+    <span onclick="document.getElementById('page-final').style.display='none'" style="font-family:'Lato',sans-serif; font-size:0.82rem; color:#c0405a; cursor:pointer; text-decoration:underline;">close</span>
+  </div>
+</div>
+
+<script>
+// Floating mixed particles — hearts + sparkles
+const funEmojis = ['💕','✨','🌸','💫','🌹','💗','⭐','🌷'];
+const hc = document.getElementById('heartsContainer');
+for (let i = 0; i < 24; i++) {
+  const h = document.createElement('div');
+  h.className = 'heart-particle';
+  h.textContent = funEmojis[Math.floor(Math.random() * funEmojis.length)];
+  h.style.left = Math.random() * 100 + '%';
+  h.style.fontSize = (14 + Math.random() * 18) + 'px';
+  h.style.animationDuration = (8 + Math.random() * 10) + 's';
+  h.style.animationDelay = (Math.random() * 10) + 's';
+  hc.appendChild(h);
+}
+
+// NO button movement
+const btnNo = document.getElementById('btnNo');
+let noClicks = 0;
+const winW = window.innerWidth, winH = window.innerHeight;
+function moveNo() {
+  noClicks++;
+  const maxX = Math.max(winW - 150, 100);
+  const maxY = Math.max(winH - 80, 100);
+  const x = Math.floor(Math.random() * maxX);
+  const y = Math.floor(Math.random() * maxY);
+  btnNo.style.left = x + 'px';
+  btnNo.style.top  = y + 'px';
+  const msgs = ['Nope!','Try again!','Catch me!','Not today!','Hehe!','Nice try!'];
+  btnNo.textContent = msgs[noClicks % msgs.length];
+}
+
+// Initial NO placement
+(function() {
+  btnNo.style.left = '60%';
+  btnNo.style.top  = '60%';
+})();
+
+// YES — go to places
+function sayYes() {
+  document.getElementById('page-ask').style.display = 'none';
+  document.getElementById('page-places').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+// Delhi places data (Google image URLs via search)
+const places = [
+  {
+    name: 'Rajghat',
+    emoji: '🕊️',
+    bg: '#e8f5e9',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Raj_Ghat_-_Gandhi_memorial.jpg/800px-Raj_Ghat_-_Gandhi_memorial.jpg',
+    tag: 'Peaceful & Historic',
+    desc: 'Let\'s explore the calm pathways of Rajghat — soak in history, breathe the fresh air, and experience one of Delhi\'s most peaceful spots together.',
+    msg: 'Rajghat it is! Let\'s go explore, walk those quiet paths, and experience a bit of Delhi\'s history together. Aditya is pumped! 🕊️'
+  },
+  {
+    name: 'India Gate',
+    emoji: '🏛️',
+    bg: '#fff8e1',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/India_Gate_in_New_Delhi_03-2016.jpg/800px-India_Gate_in_New_Delhi_03-2016.jpg',
+    tag: 'Iconic Monument',
+    desc: 'Grab an ice cream and go experience Delhi\'s most iconic landmark — the energy around India Gate is something everyone should feel at least once!',
+    msg: 'India Gate, here we come! Ice creams in hand, good vibes all around — can\'t wait to explore this iconic spot with you! 🏛️'
+  },
+  {
+    name: 'Lodhi Garden',
+    emoji: '🌿',
+    bg: '#f1f8e9',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Lodhi_Gardens_Entrance.jpg/800px-Lodhi_Gardens_Entrance.jpg',
+    tag: 'Garden Vibes',
+    desc: 'Let\'s go wander through ancient tombs and lush green gardens — a perfect place to explore, unwind, and discover hidden corners of Delhi.',
+    msg: 'Lodhi Garden — let\'s get lost among the greenery and ancient ruins. Such a cool place to explore together! 🌿'
+  },
+  {
+    name: 'Qutub Minar',
+    emoji: '🏰',
+    bg: '#fff3e0',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Qtub_minar.jpg/600px-Qtub_minar.jpg',
+    tag: 'UNESCO Heritage',
+    desc: 'Let\'s go experience one of the world\'s most stunning monuments up close — Qutub Minar is something that hits different when you\'re actually standing next to it!',
+    msg: 'Qutub Minar — 73 metres of sheer history! Let\'s go explore and experience this UNESCO wonder together. So exciting! 🏰'
+  },
+  {
+    name: 'Humayun\'s Tomb',
+    emoji: '🌅',
+    bg: '#fce4ec',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Humayun%27s_Tomb_at_Dusk.jpg/800px-Humayun%27s_Tomb_at_Dusk.jpg',
+    tag: 'Mughal Splendour',
+    desc: 'Let\'s go explore this Mughal masterpiece — walk through the grand gardens, discover the architecture, and soak in the incredible atmosphere around every corner.',
+    msg: 'Humayun\'s Tomb — let\'s go explore every corner of this stunning place. It\'s going to be such an amazing experience! 🌅'
+  },
+  {
+    name: 'Hauz Khas Village',
+    emoji: '☕',
+    bg: '#f3e5f5',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Hauz_Khas_Fort.jpg/800px-Hauz_Khas_Fort.jpg',
+    tag: 'Artsy & Chic',
+    desc: 'Street art, bookshops, quirky shops, and a medieval lake — let\'s go explore Hauz Khas Village and experience everything this cool neighbourhood has to offer!',
+    msg: 'Hauz Khas Village — exploring the art, the alleys, and chilling by a 13th-century lake. Let\'s go experience it all! 🎨'
+  },
+];
+
+// Render place cards
+const grid = document.getElementById('placesGrid');
+places.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'place-card';
+  card.innerHTML = `
+    <img class="place-img" src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="place-img-placeholder" style="display:none;background:${p.bg};font-size:60px">${p.emoji}</div>
+    <div class="place-body">
+      <h3>${p.emoji} ${p.name}</h3>
+      <p>${p.desc}</p>
+      <span class="place-tag">🏷 ${p.tag}</span>
+    </div>
+  `;
+  card.onclick = () => selectPlace(p);
+  grid.appendChild(card);
+});
+
+function selectPlace(p) {
+  document.getElementById('selectedName').textContent = p.emoji + ' ' + p.name;
+  document.getElementById('selectedMsg').textContent = p.msg;
+
+  const wrap = document.getElementById('selectedImgWrap');
+  wrap.innerHTML = `
+    <img class="selected-img" src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="selected-img-placeholder" style="display:none;background:${p.bg};font-size:80px">${p.emoji}</div>
+  `;
+
+  const overlay = document.getElementById('page-selected');
+  overlay.style.display = 'flex';
+}
+
+function showFinalPop() {
+  document.getElementById('page-selected').style.display = 'none';
+  document.getElementById('page-final').style.display = 'flex';
+}
+
+function closeSelected() {
+  document.getElementById('page-selected').style.display = 'none';
+}
+</script>
+</body>
+</html>
