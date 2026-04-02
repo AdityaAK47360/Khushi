@@ -295,6 +295,7 @@ h1 span {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  flex-direction: column;
 }
 
 .selected-card {
